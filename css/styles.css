@@ -3962,7 +3962,7 @@ input[type=button].btn-block {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #fed136;
+  background-color: #212529;
 }
 
 .nav-fill .nav-item {
@@ -4023,8 +4023,10 @@ input[type=button].btn-block {
   list-style: none;
 }
 .navbar-nav .nav-link {
-  padding-right: 0;
-  padding-left: 0;
+  padding-right: 8;
+  padding-left: 8;
+  border-radius: 5;
+  width: max-content;
 }
 .navbar-nav .dropdown-menu {
   position: static;
@@ -10093,7 +10095,7 @@ img::-moz-selection {
   font-size: 0.75rem;
   color: #fff;
   text-transform: uppercase;
-  background-color: #fed136;
+  background-color: #212529;
   border: 0;
 }
 #mainNav .navbar-brand {
@@ -10113,7 +10115,7 @@ img::-moz-selection {
   letter-spacing: 0.0625em;
 }
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #fed136;
+  color: #212529;
 }
 
 @media (min-width: 992px) {

@@ -35,22 +35,24 @@
         $(".navbar-collapse").collapse("hide");
     });
     var textWrapper = document.querySelector('.ml3');
-    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+    if(textWrapper) {
+        textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
-    anime.timeline({ loop: true })
-        .add({
-            targets: '.ml3 .letter ',
-            opacity: [0, 1],
-            easing: "easeInOutQuad",
-            duration: 1700,
-            delay: (el, i) => 150 * (i + 1)
-        }).add({
-            targets: '.ml3',
-            opacity: 0,
-            duration: 1000,
-            easing: "easeOutExpo",
-            delay: 1000
-        });
+        anime.timeline({ loop: true })
+            .add({
+                targets: '.ml3 .letter ',
+                opacity: [0, 1],
+                easing: "easeInOutQuad",
+                duration: 1700,
+                delay: (el, i) => 150 * (i + 1)
+            }).add({
+                targets: '.ml3',
+                opacity: 0,
+                duration: 1000,
+                easing: "easeOutExpo",
+                delay: 1000
+            });
+    }
 
     // Activate scrollspy to add active class to navbar items on scroll
     $("body").scrollspy({
@@ -70,21 +72,30 @@
     navbarCollapse();
     // Collapse the navbar when page is scrolled
     $(window).scroll(navbarCollapse);
+
+    // Animate fade-in for sections on scroll
+    function animateOnScroll() {
+        $('.page-section, header.masthead').each(function () {
+            var elementTop = $(this).offset().top;
+            var windowBottom = $(window).scrollTop() + $(window).height();
+
+            if (windowBottom > elementTop + 100) {
+                $(this).css({
+                    'opacity': '1',
+                    'transform': 'translateY(0)',
+                    'transition': 'opacity 1s ease, transform 1s ease'
+                });
+            }
+        });
+    }
+
+    $(window).on('scroll', animateOnScroll);
+    $(document).ready(animateOnScroll);
+
 })(jQuery); // End of use strict
 
 // Animate experience cards on page load
 document.addEventListener('DOMContentLoaded', function () {
     var currentYear = new Date().getFullYear();
     document.getElementById('currentYear').textContent = currentYear;
-
 });
-
-// Add fadeIn animation dynamically
-const style = document.createElement('style');
-style.textContent = `
-            @keyframes fadeIn {
-                from { opacity: 0; transform: translateY(10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-        `;
-document.head.appendChild(style);

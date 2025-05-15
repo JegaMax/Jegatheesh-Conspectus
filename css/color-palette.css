@@ -1,0 +1,163 @@
+:root {
+  --primary-accent: #7AC789;
+  --primary-base: #2C425C;
+  --complementary-accent: #D4D8D6;
+  --secondary-palette: #FCFCFC;
+}
+
+/* Background colors */
+.bg-primary-accent {
+  background-color: var(--primary-accent) !important;
+}
+
+.bg-primary-base {
+  background-color: var(--primary-base) !important;
+}
+
+.bg-complementary {
+  background-color: var(--complementary-accent) !important;
+}
+
+.bg-secondary {
+  background-color: var(--secondary-palette) !important;
+}
+
+/* Text colors */
+.text-primary-accent {
+  color: var(--primary-accent) !important;
+}
+
+.text-primary-base {
+  color: var(--primary-base) !important;
+}
+
+.text-complementary {
+  color: var(--complementary-accent) !important;
+}
+
+/* Main styling updates */
+body {
+  color: var(--primary-base);
+  background-color: var(--secondary-palette);
+}
+
+/* Masthead styling */
+.masthead {
+  background-color: var(--primary-base);
+  color: var(--secondary-palette);
+}
+
+.masthead .masthead-heading {
+  color: var(--primary-accent);
+}
+
+/* Section styling */
+.page-section {
+  background-color: var(--secondary-palette);
+}
+
+.page-section h1 {
+  color: var(--primary-base);
+}
+
+.page-section .title-icon {
+  color: var(--primary-accent);
+}
+
+.bg-light1, .bg-light {
+  background-color: var(--complementary-accent) !important;
+  color: var(--primary-base);
+}
+
+/* About section */
+.about-content .highlight {
+  color: var(--primary-accent);
+  font-weight: bold;
+}
+
+.about-content .tech {
+  background-color: var(--primary-base);
+  color: var(--secondary-palette);
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
+.about-content .icon {
+  color: var(--primary-accent);
+}
+
+/* Timeline styling */
+.timeline .timeline-image {
+  background-color: var(--primary-accent);
+}
+
+/* Project styling */
+.Project-caption-heading {
+  color: var(--primary-base);
+}
+
+.Project-hover {
+  background: rgba(122, 199, 137, 0.8); /* Primary accent with opacity */
+}
+
+/* Experience section */
+.experience-card {
+  border-left: 4px solid var(--primary-accent);
+  background-color: var(--secondary-palette);
+  margin-bottom: 20px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.experience-card h3 {
+  color: var(--primary-base);
+}
+
+.experience-card .company {
+  color: var(--primary-accent);
+  font-weight: bold;
+}
+
+.tech-stack-grid span {
+  background-color: var(--primary-base);
+  color: var(--secondary-palette);
+  padding: 5px 8px;
+  border-radius: 4px;
+  margin: 3px;
+  display: inline-block;
+}
+
+/* Contact section */
+#Contact {
+  background-color: var(--primary-base);
+  color: var(--secondary-palette);
+}
+
+#Contact h1, #Contact .title-icon {
+  color: var(--secondary-palette);
+}
+
+.btn-dark {
+  background-color: var(--primary-accent);
+  border-color: var(--primary-accent);
+}
+
+.btn-dark:hover {
+  background-color: var(--complementary-accent);
+  border-color: var(--complementary-accent);
+}
+
+/* Modal styling */
+.modal-content {
+  background-color: var(--secondary-palette);
+}
+
+.btn-primary {
+  background-color: var(--primary-accent);
+  border-color: var(--primary-accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-base);
+  border-color: var(--primary-base);
+}

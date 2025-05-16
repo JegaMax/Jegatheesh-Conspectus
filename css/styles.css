@@ -143,7 +143,6 @@ header.masthead .masthead-subheading {
   font-family: "Droid Serif", serif;
   color: #2C425C;
   animation: fadeInUp 2.2s ease forwards;
-  opacity: 0;
 }
 header.masthead .masthead-heading {
   font-size: 2rem;
@@ -156,9 +155,20 @@ header.masthead .masthead-heading {
   opacity: 0;
 }
 
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (min-width: 768px) {
   header.masthead {
-    padding-top: 17rem;
+    padding-top: 8rem;
     padding-bottom: 12.5rem;
   }
   header.masthead .masthead-subheading {

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://jegamax.github.io/Jegatheesh-Conspectus/sitemap.xml

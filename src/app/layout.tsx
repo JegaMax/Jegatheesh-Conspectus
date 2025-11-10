@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     siteName: "Jegatheesh C Portfolio",
     images: [
       {
-        url: "https://jegamax.github.io/Jegatheesh-Conspectus/assets/img/jega.jpg",
+        url: "https://jegamax.github.io/Jegatheesh-Conspectus/assets/img/jegatheesh-profile.png",
         width: 1200,
         height: 630,
         alt: "Jegatheesh C - Software Engineer",
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Jegatheesh C - Software Engineer Portfolio",
     description: "Software Engineer with 4+ years of experience in full-stack web application development using Java, Spring Boot, React, and Angular.",
-    images: ["https://jegamax.github.io/Jegatheesh-Conspectus/assets/img/jega.jpg"],
+    images: ["https://jegamax.github.io/Jegatheesh-Conspectus/assets/img/jegatheesh-profile.png"],
   },
   verification: {
     google: "8WDxnzXSfmBpP5i3QQZipeS1sCXJvJ_68PBroOurgi4",

@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import Link from 'next/link';
+import Image from 'next/image';
 
 const Nav = styled(motion.nav)<{ $scrolled: boolean }>`
   position: fixed;
@@ -11,10 +11,8 @@ const Nav = styled(motion.nav)<{ $scrolled: boolean }>`
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: ${props => props.$scrolled ? '1rem 2rem' : '1.5rem 2rem'};
-  background-color: ${props => props.$scrolled ? 'rgba(44, 66, 92, 0.95)' : 'transparent'};
-  backdrop-filter: ${props => props.$scrolled ? 'blur(10px)' : 'none'};
-  box-shadow: ${props => props.$scrolled ? '0 2px 20px rgba(0, 0, 0, 0.1)' : 'none'};
+  padding: 1.5rem 2rem;
+  background-color: transparent;
   transition: all 0.3s ease;
 
   @media (max-width: 768px) {
@@ -25,27 +23,85 @@ const Nav = styled(motion.nav)<{ $scrolled: boolean }>`
 const NavContainer = styled.div`
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
+`;
+
+const NavBar = styled.div<{ $scrolled: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  background: ${props => props.$scrolled
+    ? 'rgba(255, 255, 255, 0.95)'
+    : 'rgba(255, 255, 255, 0.9)'};
+  border: 1px solid rgba(44, 66, 92, 0.05);
+  border-radius: 999px;
+  padding: 0.75rem 1.75rem;
+  box-shadow: ${props => props.$scrolled
+    ? '0 12px 35px rgba(31, 43, 92, 0.15)'
+    : '0 8px 30px rgba(31, 43, 92, 0.1)'};
+  backdrop-filter: blur(14px);
+
+  @media (max-width: 1120px) {
+    gap: 1.25rem;
+    padding: 0.65rem 1.5rem;
+  }
+
+  @media (max-width: 992px) {
+    gap: 1rem;
+    padding: 0.65rem 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    border-radius: 24px;
+    padding: 0.5rem 1rem;
+  }
 `;
 
 const Logo = styled(motion.div)`
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #d2b48c;
+  color: #1f2b5c;
   letter-spacing: 0.05em;
-  text-transform: uppercase;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  span {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  img {
+    border-radius: 12px;
+  }
 
   @media (max-width: 768px) {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 `;
 
 const NavLinks = styled.div<{ $isOpen: boolean }>`
   display: flex;
-  gap: 2rem;
   align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  flex: 1;
+  flex-wrap: wrap;
+  row-gap: 0.75rem;
+  min-width: 0;
+
+  @media (max-width: 1120px) {
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 992px) {
+    gap: 1.2rem;
+  }
 
   @media (max-width: 768px) {
     position: fixed;
@@ -54,19 +110,20 @@ const NavLinks = styled.div<{ $isOpen: boolean }>`
     height: 100vh;
     width: 70%;
     max-width: 300px;
-    background: rgba(44, 66, 92, 0.98);
-    backdrop-filter: blur(10px);
+    background: rgba(44, 66, 92, 0.95);
+    backdrop-filter: blur(14px);
     flex-direction: column;
     justify-content: center;
-    gap: 2.5rem;
-    transform: ${props => props.$isOpen ? 'translateX(0)' : 'translateX(100%)'};
+    gap: 2rem;
+    flex: none;
+    transform: ${props => props.$isOpen ? 'translateX(0)' : 'translateX(115%)'};
     transition: transform 0.3s ease;
-    box-shadow: ${props => props.$isOpen ? '-5px 0 20px rgba(0, 0, 0, 0.3)' : 'none'};
+    box-shadow: ${props => props.$isOpen ? '-5px 0 24px rgba(0, 0, 0, 0.35)' : 'none'};
   }
 `;
 
 const NavLink = styled(motion.a)`
-  color: #f4f1ea;
+  color: #1f2b5c;
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0.05em;
@@ -74,6 +131,7 @@ const NavLink = styled(motion.a)`
   position: relative;
   padding: 0.5rem 0;
   cursor: pointer;
+  white-space: nowrap;
 
   &::after {
     content: '';
@@ -82,7 +140,7 @@ const NavLink = styled(motion.a)`
     left: 0;
     width: 0;
     height: 2px;
-    background: #7AC789;
+    background: linear-gradient(135deg, #6e8bff, #9f6bff);
     transition: width 0.3s ease;
   }
 
@@ -91,8 +149,17 @@ const NavLink = styled(motion.a)`
     width: 100%;
   }
 
+  @media (max-width: 1120px) {
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 992px) {
+    font-size: 0.85rem;
+  }
+
   @media (max-width: 768px) {
     font-size: 1.2rem;
+    color: #f4f1ea;
   }
 `;
 
@@ -114,7 +181,7 @@ const MenuButton = styled.button<{ $isOpen: boolean }>`
     display: block;
     width: 25px;
     height: 3px;
-    background: ${props => props.$isOpen ? '#7AC789' : '#f4f1ea'};
+    background: ${props => props.$isOpen ? '#7AC789' : '#1f2b5c'};
     transition: all 0.3s ease;
     border-radius: 2px;
 
@@ -195,39 +262,48 @@ const Navigation: React.FC = () => {
     <>
       <Nav $scrolled={scrolled}>
         <NavContainer>
-          <Logo
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            Jegatheesh C
-          </Logo>
+          <NavBar $scrolled={scrolled}>
+            <Logo
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Image
+                src="/assets/favicon/favicon-32x32.png"
+                alt="Jegatheesh C logo"
+                width={32}
+                height={32}
+                priority
+              />
+              <span>Jegatheesh C</span>
+            </Logo>
 
-          <NavLinks $isOpen={isOpen}>
-            {navItems.map((item, index) => (
-              <NavLink
-                key={item.name}
-                onClick={() => handleLinkClick(item.href)}
-                className={activeSection === item.href.substring(1) ? 'active' : ''}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -2 }}
-              >
-                {item.name}
-              </NavLink>
-            ))}
-          </NavLinks>
+            <NavLinks $isOpen={isOpen}>
+              {navItems.map((item, index) => (
+                <NavLink
+                  key={item.name}
+                  onClick={() => handleLinkClick(item.href)}
+                  className={activeSection === item.href.substring(1) ? 'active' : ''}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ y: -2 }}
+                >
+                  {item.name}
+                </NavLink>
+              ))}
+            </NavLinks>
 
-          <MenuButton
-            $isOpen={isOpen}
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            <span />
-            <span />
-            <span />
-          </MenuButton>
+            <MenuButton
+              $isOpen={isOpen}
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              <span />
+              <span />
+              <span />
+            </MenuButton>
+          </NavBar>
         </NavContainer>
       </Nav>
 

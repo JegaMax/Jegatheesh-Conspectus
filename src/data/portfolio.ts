@@ -18,7 +18,7 @@ export const personalInfo = {
     instagram: "https://www.instagram.com/_.jegatheesh._.c._/"
   },
   quote: "Philosophy gets on my nerves. If we analyze the ultimate ground of everything, then everything finally falls into nothingness. But I have decided to resume my lectures again and look the Hydra of doubt straight into the eye, and it be quite ominous if one values one's life.",
-  image: "/assets/img/jega.jpg"
+  image: "/assets/img/jegatheesh-profile.png"
 };
 
 export const about = {

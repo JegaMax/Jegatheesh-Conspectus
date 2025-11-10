@@ -106,38 +106,51 @@ const CourseInfo = styled.p`
   }
 `;
 
-const Controls = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-top: 2rem;
-`;
-
-const ControlButton = styled.button`
-  background: #2C425C;
-  color: white;
+const CarouselArrow = styled.button<{ $position: 'left' | 'right' }>`
+  position: absolute;
+  top: 50%;
+  ${props => props.$position === 'left' ? 'left: -3rem;' : 'right: -3rem;'}
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 25px;
-  font-size: 1rem;
+  background: rgba(44, 66, 92, 0.85);
+  color: white;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  z-index: 2;
 
   &:hover {
     background: #7AC789;
-    transform: translateY(-2px);
+    transform: translateY(-50%) scale(1.05);
   }
 
   &:disabled {
-    background: #ccc;
+    background: rgba(204, 204, 204, 0.8);
     cursor: not-allowed;
-    transform: none;
+    transform: translateY(-50%);
   }
 
   @media (max-width: 768px) {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.9rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.25rem;
+    ${props => props.$position === 'left' ? 'left: -1.5rem;' : 'right: -1.5rem;'}
   }
+`;
+
+const ArrowIcon = styled.svg<{ $direction: 'left' | 'right' }>`
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  transform: ${props => props.$direction === 'left' ? 'rotate(180deg)' : 'none'};
+  transition: transform 0.3s ease;
 `;
 
 const Indicators = styled.div`
@@ -227,6 +240,24 @@ const Courses: React.FC = () => {
           "A Learning Curve is Essential to Growth"
         </Subtitle>
         <CarouselContainer>
+          <CarouselArrow
+            $position="left"
+            onClick={handlePrev}
+            aria-label="Previous course"
+          >
+            <ArrowIcon $direction="left" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+            </ArrowIcon>
+          </CarouselArrow>
+          <CarouselArrow
+            $position="right"
+            onClick={handleNext}
+            aria-label="Next course"
+          >
+            <ArrowIcon $direction="right" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+            </ArrowIcon>
+          </CarouselArrow>
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <CarouselItem
               key={currentIndex}
@@ -256,14 +287,6 @@ const Courses: React.FC = () => {
               )}
             </CarouselItem>
           </AnimatePresence>
-          <Controls>
-            <ControlButton onClick={handlePrev}>
-              Previous
-            </ControlButton>
-            <ControlButton onClick={handleNext}>
-              Next
-            </ControlButton>
-          </Controls>
           <Indicators>
             {courses.map((_, index) => (
               <Indicator

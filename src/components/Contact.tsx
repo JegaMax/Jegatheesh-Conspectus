@@ -231,10 +231,18 @@ const Contact: React.FC = () => {
             <br />
             {personalInfo.location.postalCode}
             <br />
-            Ph.No: {personalInfo.phone}
           </Info>
           
           <SocialLinks>
+            <SocialButton href={`tel:${personalInfo.phone}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Phone"
+            >
+              <i className="fa fa-phone"></i>
+            </SocialButton>
             <SocialButton
               href={`mailto:${personalInfo.email}`}
               whileHover={{ scale: 1.1 }}

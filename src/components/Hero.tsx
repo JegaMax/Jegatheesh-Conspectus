@@ -24,7 +24,7 @@ const HeroSection = styled.section`
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(244, 241, 234, 0.85);
+    background: rgba(244, 241, 234, 0.6);
   }
 
   @media (max-width: 768px) {
@@ -120,7 +120,7 @@ const Hero: React.FC = () => {
           {personalInfo.quote}
         </Title>
       </HeroContainer>
-      <ScrollIndicator
+      {/* <ScrollIndicator
         onClick={scrollToAbout}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -131,7 +131,7 @@ const Hero: React.FC = () => {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 1.5, repeat: Infinity }}
         />
-      </ScrollIndicator>
+      </ScrollIndicator> */}
     </HeroSection>
   );
 };

@@ -158,7 +158,10 @@ const TechBadge = styled.span`
   text-align: center;
   color: #2C425C;
   font-weight: 500;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  justify-content: center;
 
   @media (max-width: 768px) {
     font-size: 0.85rem;
@@ -223,6 +226,25 @@ const iconAnimation = {
   }
 };
 
+const techStackIcons: Record<string, string> = {
+  "AWS Lambda": "☁️",
+  "AWS SES": "✉️",
+  "AWS S3": "📦",
+  "Spring Boot": "⚙️",
+  "Angular": "🖥️",
+  "MySQL": "🗃️",
+  "OpenAI": "🤖",
+  "Twilio": "📱",
+  "JWT": "🔐",
+  "REST API": "🔄",
+  "Java": "☕",
+  "React.js": "⚛️",
+  "Android": "📱",
+  "Hibernate": "🛠️"
+};
+
+const getTechIcon = (tech: string) => techStackIcons[tech] ?? "🔧";
+
 const Experience: React.FC = () => {
   return (
     <Section id="experience">
@@ -284,9 +306,15 @@ const Experience: React.FC = () => {
             <TechStackToggle>
               <summary>🔧 Tech Stack (Click to Expand)</summary>
               <TechStackGrid>
-                {job.techStack.map((tech, idx) => (
-                  <TechBadge key={idx}>{tech}</TechBadge>
-                ))}
+                {job.techStack.map((tech, idx) => {
+                  const icon = getTechIcon(tech);
+                  return (
+                    <TechBadge key={idx}>
+                      <span aria-hidden="true">{icon}</span>
+                      <span>{tech}</span>
+                    </TechBadge>
+                  );
+                })}
               </TechStackGrid>
             </TechStackToggle>
           </ExperienceCard>

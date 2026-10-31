@@ -1,0 +1,27 @@
+.skills { background: var(--surface); --text-2: color-mix(in srgb, var(--text-1) 80%, var(--surface)); }
+.title { max-width: 14ch; margin-bottom: clamp(3rem, 7vw, 5.5rem); }
+
+.row {
+  display: grid; grid-template-columns: minmax(10rem, 3fr) 9fr; grid-template-areas: 'cat items' '. note';
+  gap: 0.5rem clamp(1.5rem, 4vw, 4rem); padding: 1.6rem 0 1rem; border-top: 1px solid var(--line-strong);
+}
+.row:last-child { border-bottom: 1px solid var(--line-strong); }
+.cat { grid-area: cat; font-family: var(--font-body); font-size: 0.95rem; font-weight: 600; letter-spacing: 0; display: flex; gap: 1rem; align-items: baseline; padding-top: 0.6rem; }
+.cat .mono { color: var(--primary); font-size: 0.7rem; }
+.items { grid-area: items; display: flex; flex-wrap: wrap; gap: 0.2rem 1.6rem; }
+.chip {
+  position: relative; padding: 0.15rem 0; min-height: 44px;
+  font-family: var(--font-display); font-size: clamp(1.9rem, 4.4vw, 3.4rem); line-height: 1.1; letter-spacing: -0.03em; color: var(--text-1);
+  transition: color 0.3s var(--ease), font-style 0.3s, transform 0.4s var(--ease);
+}
+.chip::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0.1em; height: 2px; background: var(--primary); transform: scaleX(0); transform-origin: left; transition: transform 0.45s var(--ease); }
+/* siblings recede while one label is engaged */
+.items:has(.chip:hover, .chip:focus-visible) .chip:not(:hover, :focus-visible) { color: var(--text-2); }
+.chip:hover, .chip:focus-visible, .chip[aria-pressed='true'] { font-style: italic; color: var(--primary); transform: translateX(4px); }
+.chip:hover::after, .chip:focus-visible::after, .chip[aria-pressed='true']::after { transform: scaleX(1); }
+.note { grid-area: note; min-height: 1.2em; color: var(--text-1); font-size: 0.7rem; }
+
+@media (max-width: 760px) {
+  .row { grid-template-columns: 1fr; grid-template-areas: 'cat' 'items' 'note'; }
+  .cat { padding-top: 0; }
+}

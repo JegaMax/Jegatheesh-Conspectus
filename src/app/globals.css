@@ -1,48 +1,131 @@
-@import "tailwindcss";
-
+/* ───────────── Design tokens ───────────── */
 :root {
-  --background: #f4f1ea;
-  --foreground: #3e4c3a;
-  --font-montserrat: var(--font-montserrat);
-  --font-droid-serif: var(--font-droid-serif);
+  --bg: #ffffff;
+  --surface: #dceaf7;
+  --primary: #134074;
+  --primary-hover: #0b2545;
+  --accent: #5b9bd5;
+  --text-1: #0b2545;
+  --text-2: #5a6d8a;
+
+  /* derived (no new hues): hairlines are the text colour at low alpha */
+  --line: color-mix(in srgb, var(--text-1) 16%, transparent);
+  --line-strong: color-mix(in srgb, var(--text-1) 34%, transparent);
+
+  --font-display: var(--font-fraunces), 'Iowan Old Style', Georgia, serif;
+  --font-body: var(--font-instrument), system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  --gutter: clamp(1.25rem, 4vw, 3.5rem);
+  --maxw: 1320px;
+  --nav-h: 76px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  color-scheme: light;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+[data-theme='dark'] {
+  --bg: #0b2545;
+  --surface: #133054;
+  --primary: #5b9bd5;
+  --primary-hover: #dceaf7;
+  --accent: #5b9bd5;
+  --text-1: #dceaf7;
+  --text-2: #8fb8e0;
+  color-scheme: dark;
 }
+
+@media (max-width: 720px) {
+  :root { --nav-h: 64px; }
+}
+
+/* ───────────── Base ───────────── */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 12px);
+  -webkit-text-size-adjust: 100%;
+  background: var(--bg);
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-montserrat), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
   overflow-x: hidden;
-  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-  line-height: 1.2;
+/* Colour transitions only while the lamp is being pulled. */
+html.theme-switching, html.theme-switching *, html.theme-switching *::before, html.theme-switching *::after {
+  transition: background-color 0.6s ease, color 0.6s ease, border-color 0.6s ease, fill 0.6s ease, stroke 0.6s ease, opacity 0.6s ease !important;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
+h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; text-wrap: balance; }
+p { text-wrap: pretty; }
+a { color: inherit; text-decoration: none; }
+img, svg { max-width: 100%; }
+img { height: auto; display: block; }
+button { font: inherit; color: inherit; cursor: pointer; background: none; border: 0; }
+ul, ol { padding: 0; list-style: none; margin: 0; }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+::selection { background: var(--primary); color: var(--bg); }
+
+.skip-link {
+  position: fixed; left: 1rem; top: -4rem; z-index: 200;
+  background: var(--primary); color: var(--bg);
+  padding: 0.6rem 1rem; font-family: var(--font-mono); font-size: 0.8rem;
+  transition: top 0.2s;
+}
+.skip-link:focus { top: 1rem; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  font-family: inherit;
-}
+/* ───────────── Shared layout ───────────── */
+.wrap { width: 100%; max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+.section { position: relative; padding-block: clamp(5rem, 11vw, 9.5rem); }
+.mono { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase; }
 
-img {
-  max-width: 100%;
-  height: auto;
+/* Section marker: "02 / About" + hairline */
+.marker { display: flex; align-items: center; gap: 1rem; color: var(--text-2); margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
+.marker::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+.marker b { color: var(--primary); font-weight: 500; }
+
+.h2 { font-size: clamp(2.4rem, 6.2vw, 5rem); letter-spacing: -0.03em; }
+.h2 em { font-style: italic; color: var(--primary); }
+
+/* Buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  padding: 0.95rem 1.4rem; min-height: 48px;
+  font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase;
+  border: 1px solid var(--primary); border-radius: 2px;
+  transition: background-color 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.btn .arr { display: inline-block; transition: transform 0.3s var(--ease); }
+.btn:hover .arr { transform: translateX(5px); }
+.btn-solid { background: var(--primary); color: var(--bg); }
+.btn-solid:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+[data-theme='dark'] .btn-solid:hover { color: var(--bg); }
+.btn-line { color: var(--primary); }
+.btn-line:hover { background: var(--surface); }
+
+/* Text link with sliding underline */
+.ulink { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; transition: background-size 0.4s var(--ease); padding-bottom: 2px; }
+.ulink:hover { background-size: 0 1px; background-position: 100% 100%; }
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
 }

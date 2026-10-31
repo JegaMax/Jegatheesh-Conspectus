@@ -1,139 +1,89 @@
 'use client';
 
-import React from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { personalInfo } from '@/data/portfolio';
+import { useEffect, useState } from 'react';
+import PullChainLamp from '@/components/lamp/PullChainLamp';
+import { useTheme } from '@/components/ThemeProvider';
+import { availability, personalInfo } from '@/data/portfolio';
+import { yearsOfExperience } from '@/lib/site';
+import styles from './Hero.module.css';
 
-const HeroSection = styled.section`
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: url('/assets/img/ecebg.jpg');
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
-  position: relative;
-  padding: 6rem 2rem 2rem;
+/** Deterministic star field (pure function → identical on server and client). */
+const STARS = (() => {
+  let s = 7;
+  const r = () => ((s = (s * 16807) % 2147483647) / 2147483647);
+  return Array.from({ length: 44 }, () => `${(r() * 100).toFixed(1)}vw ${(r() * 100).toFixed(1)}vh 0 ${r() > 0.8 ? 1 : 0}px var(--text-2)`).join(',');
+})();
 
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(244, 241, 234, 0.85);
-  }
+function useLocalTime(tz: string) {
+  const [t, setT] = useState('');
+  useEffect(() => {
+    const f = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz, hour12: false });
+    const tick = () => setT(f.format(new Date()));
+    tick();
+    const id = window.setInterval(tick, 20_000);
+    return () => window.clearInterval(id);
+  }, [tz]);
+  return t;
+}
 
-  @media (max-width: 768px) {
-    padding: 5rem 1.5rem 2rem;
-    background-attachment: scroll;
-  }
-`;
-
-const HeroContainer = styled.div`
-  max-width: 1200px;
-  width: 100%;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-`;
-
-const Subtitle = styled(motion.h2)`
-  font-size: 2rem;
-  font-style: italic;
-  color: #2C425C;
-  margin-bottom: 1.5rem;
-  font-family: 'Droid Serif', serif;
-  font-weight: 400;
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-  }
-`;
-
-const Title = styled(motion.h1)`
-  font-size: 2.5rem;
-  font-weight: 600;
-  color: #3e4c3a;
-  line-height: 1.4;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 1rem;
-
-  @media (max-width: 768px) {
-    font-size: 1.5rem;
-  }
-`;
-
-const ScrollIndicator = styled(motion.div)`
-  position: absolute;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  color: #2C425C;
-  font-size: 0.875rem;
-  cursor: pointer;
-
-  @media (max-width: 768px) {
-    bottom: 1rem;
-  }
-`;
-
-const ScrollArrow = styled(motion.div)`
-  width: 24px;
-  height: 24px;
-  border-left: 2px solid #2C425C;
-  border-bottom: 2px solid #2C425C;
-  transform: rotate(-45deg);
-`;
-
-const Hero: React.FC = () => {
-  const scrollToAbout = () => {
-    const aboutSection = document.getElementById('about');
-    if (aboutSection) {
-      aboutSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
+export default function Hero() {
+  const { soundOn, toggleSound } = useTheme();
+  const time = useLocalTime(personalInfo.timeZone);
+  const years = yearsOfExperience();
 
   return (
-    <HeroSection>
-      <HeroContainer>
-        <Subtitle
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        >
-          Welcome To My Conspectus!
-        </Subtitle>
-        <Title
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-        >
-          {personalInfo.quote}
-        </Title>
-      </HeroContainer>
-      <ScrollIndicator
-        onClick={scrollToAbout}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 1 }}
-      >
-        <span>Scroll</span>
-        <ScrollArrow
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        />
-      </ScrollIndicator>
-    </HeroSection>
-  );
-};
+    <section id="home" className={styles.hero} aria-labelledby="hero-title">
+      <div className={styles.grid} aria-hidden="true" />
+      <div className={styles.stars} aria-hidden="true"><i style={{ boxShadow: STARS }} /></div>
+      <div className={styles.beam} aria-hidden="true" />
 
-export default Hero;
+      <div className={`wrap ${styles.inner}`}>
+        <p className={`${styles.status} mono`} style={{ animationDelay: '0.1s' }}>
+          <span className={styles.dot} aria-hidden="true" />
+          <span>{availability.label}</span>
+          <span className={styles.statusText}>{availability.text} · {availability.detail}</span>
+        </p>
+
+        <h1 id="hero-title" className={styles.name}>
+          <span className={styles.mask}><span className={styles.rise} style={{ animationDelay: '0.05s' }}>Jegatheesh</span></span>{' '}
+          <span className={styles.mask}><span className={styles.rise} style={{ animationDelay: '0.15s' }}><i>C</i>.</span></span>
+          <span className="sr-only"> — Software Engineer</span>
+        </h1>
+
+        <div className={styles.copy}>
+          <p className={styles.lede} style={{ animationDelay: '0.6s' }}>
+            Java services, Angular&nbsp;&amp;&nbsp;React interfaces,<br />
+            <em>built line by line.</em>
+          </p>
+          <p className={styles.intro} style={{ animationDelay: '0.72s' }}>
+            Software Development Engineer with {years}+ years in full-stack web development. I design and build scalable
+            applications with Java, Spring Boot, REST APIs, SQL, React and Angular, on AWS and CI/CD pipelines.
+          </p>
+          <div className={styles.cta} style={{ animationDelay: '0.85s' }}>
+            <a href="#projects" className="btn btn-solid">View projects <span className="arr" aria-hidden="true">→</span></a>
+            <a href="#contact" className="btn btn-line">Contact me</a>
+          </div>
+        </div>
+
+        <div className={styles.lampWrap}>
+          <div className={styles.lampBox}>
+            <PullChainLamp width="clamp(170px, 19vw, 260px)" variant="hero" />
+          </div>
+          <div className={styles.lampCaption}>
+            <span className={`${styles.hint} mono`}><span aria-hidden="true">↓</span> Pull the chain</span>
+            <button type="button" className={`${styles.sound} mono`} aria-pressed={soundOn} onClick={toggleSound}>
+              Click sound: {soundOn ? 'on' : 'off'}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className={`wrap ${styles.meta} mono`} aria-hidden="true">
+        <span>{personalInfo.location.city}, {personalInfo.location.country}</span>
+        <span className={styles.metaHide}>{personalInfo.coordinates}</span>
+        <span>{time ? `IST ${time}` : ' '}</span>
+        <span className={styles.scrollCue}>Scroll</span>
+      </div>
+    </section>
+  );
+}

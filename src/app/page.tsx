@@ -1,27 +1,26 @@
-'use client';
-
-import Navigation from '@/components/Navigation';
+import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
-import Education from '@/components/Education';
+import Skills from '@/components/Skills';
 import Projects from '@/components/Projects';
-import Courses from '@/components/Courses';
 import Experience from '@/components/Experience';
 import Contact from '@/components/Contact';
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
     <>
-      <Navigation />
-      <main>
+      <a href="#main" className="skip-link">Skip to content</a>
+      <Nav />
+      <main id="main">
         <Hero />
         <About />
-        <Education />
+        <Skills />
         <Projects />
-        <Courses />
         <Experience />
         <Contact />
       </main>
+      <Footer />
     </>
   );
 }

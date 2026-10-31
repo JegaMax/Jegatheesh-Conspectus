@@ -1,0 +1,26 @@
+.experience { border-top: 1px solid var(--line); }
+.title { margin-bottom: clamp(3rem, 7vw, 5.5rem); }
+.timeline { position: relative; padding-left: clamp(1.75rem, 4vw, 3rem); }
+.rail { position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem; width: 1px; background: var(--line-strong); }
+.railFill { position: absolute; inset: 0; background: var(--primary); width: 3px; left: -1px; transform-origin: top; }
+.entry { position: relative; display: grid; grid-template-columns: minmax(11rem, 3fr) 9fr; gap: 1.5rem clamp(1.5rem, 4vw, 4rem); padding-bottom: clamp(3.5rem, 7vw, 6rem); }
+.entry:last-child { padding-bottom: 0; }
+.node { position: absolute; left: calc(-1 * clamp(1.75rem, 4vw, 3rem) - 5px); top: 0.45rem; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 2px solid var(--primary); }
+.when { position: sticky; top: calc(var(--nav-h) + 1.5rem); align-self: start; }
+.period { color: var(--primary); font-size: 0.8rem; }
+.dur, .where { color: var(--text-2); font-size: 0.7rem; margin-top: 0.4rem; }
+.role { font-size: clamp(1.9rem, 3.8vw, 3.2rem); letter-spacing: -0.03em; }
+.company { margin-top: 0.5rem; font-size: 1.15rem; font-weight: 600; display: flex; gap: 0.9rem; align-items: baseline; flex-wrap: wrap; }
+.company .mono { font-weight: 400; color: var(--text-2); font-size: 0.68rem; }
+.positions { margin-top: 1rem; }
+.positions li { color: var(--text-2); font-size: 0.7rem; padding: 0.5rem 0; border-top: 1px solid var(--line); }
+.bullets { margin-top: 1.6rem; max-width: 42rem; }
+.bullets li { position: relative; padding: 0.85rem 0 0.85rem 1.8rem; border-top: 1px solid var(--line); color: var(--text-1); }
+.bullets li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-family: var(--font-mono); }
+.stack { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-top: 1.6rem; }
+.stack li { font-family: var(--font-mono); font-size: 0.72rem; padding: 0.35rem 0.65rem; border: 1px solid var(--line-strong); }
+
+@media (max-width: 800px) {
+  .entry { grid-template-columns: 1fr; }
+  .when { position: static; }
+}

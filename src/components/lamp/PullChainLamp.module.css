@@ -1,0 +1,56 @@
+.lamp {
+  --warm: #ffd58a;
+  --cone-op: 0.5;
+  --halo-op: 0.9;
+  --bulb-fill: #fff4d6;
+  position: relative;
+  display: block;
+  flex: none;
+}
+:global([data-theme='dark']) .lamp {
+  --warm: var(--accent);
+  --cone-op: 0.1;
+  --halo-op: 0.22;
+  --bulb-fill: var(--text-2);
+}
+.lamp svg { display: block; overflow: visible; max-width: none; }
+
+.coneStop, .bulbStop { stop-color: var(--warm); transition: stop-color 0.7s ease; }
+.cone { opacity: var(--cone-op); transition: opacity 0.7s ease; }
+.pool { fill: var(--warm); opacity: calc(var(--cone-op) * 0.5); transition: opacity 0.7s ease; }
+.halo { opacity: var(--halo-op); transition: opacity 0.7s ease; }
+.bulb { fill: var(--bulb-fill); transition: fill 0.7s ease; }
+.rimGlow { fill: var(--warm); opacity: calc(var(--halo-op) * 0.8); transition: opacity 0.7s ease; }
+.shadow { fill: var(--text-1); opacity: 0.12; }
+
+.base { fill: var(--primary); }
+.baseHi { fill: none; stroke: var(--bg); stroke-width: 3; stroke-linecap: round; opacity: 0.3; }
+.neck, .collar, .finial { fill: var(--primary-hover); }
+.finialBall { fill: var(--primary-hover); }
+.shade { fill: var(--surface); stroke: var(--primary); stroke-width: 2; stroke-linejoin: round; }
+.pleats { fill: none; stroke: var(--primary); stroke-width: 1; opacity: 0.28; }
+.chain { stroke: var(--primary); stroke-width: 3; stroke-linecap: round; stroke-dasharray: 0.1 5.5; }
+.knob { fill: var(--primary); }
+
+.hit {
+  position: absolute;
+  transform: translateX(-50%);
+  width: max(44px, 9%);
+  min-height: 44px;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  cursor: grab;
+  touch-action: none;
+  border-radius: 999px;
+  -webkit-tap-highlight-color: transparent;
+}
+.hit:active { cursor: grabbing; }
+.hit:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+@media (hover: hover) {
+  .lamp:has(.hit:hover) .knob { fill: var(--accent); }
+}
+
+/* the compact nav lamp skips the long light cone: it would read as a box at this size */
+.nav .cone, .nav .pool { display: none; }
+.nav { --halo-op: 0.55; }

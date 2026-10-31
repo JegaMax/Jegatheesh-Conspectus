@@ -1,179 +1,105 @@
-'use client';
+import { about, careerHighlights, courses, education, philosophy } from '@/data/portfolio';
+import { asset, yearsOfExperience } from '@/lib/site';
+import { Reveal, RevealText, SectionMarker } from '@/components/ui/Reveal';
+import styles from './About.module.css';
 
-import React from 'react';
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { about } from '@/data/portfolio';
+export default function About() {
+  const years = yearsOfExperience();
+  const certs = courses.filter((c) => c.type === 'Certificate');
+  const learning = courses.filter((c) => c.type === 'Course');
 
-const Section = styled.section`
-  padding: 6rem 2rem;
-  background-color: #f4f1ea;
-
-  @media (max-width: 768px) {
-    padding: 4rem 1.5rem;
-  }
-`;
-
-const Container = styled.div`
-  max-width: 1000px;
-  margin: 0 auto;
-`;
-
-const Title = styled(motion.h1)`
-  text-align: center;
-  font-size: 2.5rem;
-  color: #2c3e50;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-
-  @media (max-width: 768px) {
-    font-size: 2rem;
-  }
-`;
-
-const TitleIcon = styled(motion.span)`
-  font-size: 3rem;
-  
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-`;
-
-const Subtitle = styled(motion.h3)`
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 400;
-  font-style: italic;
-  font-family: 'Droid Serif', serif;
-  color: #7AC789;
-  margin-bottom: 3rem;
-
-  @media (max-width: 768px) {
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-  }
-`;
-
-const Content = styled(motion.div)`
-  background: white;
-  border-radius: 15px;
-  padding: 3rem;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 768px) {
-    padding: 2rem 1.5rem;
-  }
-`;
-
-const Description = styled.p`
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: #3e4c3a;
-  margin-bottom: 1.5rem;
-
-  &:first-child {
-    font-size: 1.25rem;
-    font-weight: 600;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1rem;
-
-    &:first-child {
-      font-size: 1.125rem;
-    }
-  }
-`;
-
-const Highlight = styled.span`
-  color: #2C425C;
-  font-weight: 600;
-`;
-
-const Tech = styled.span`
-  background: linear-gradient(135deg, #7AC789 0%, #2C425C 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  font-weight: 600;
-`;
-
-const Icon = styled.span`
-  margin-right: 0.75rem;
-  font-size: 1.3em;
-  vertical-align: middle;
-`;
-
-const iconAnimation = {
-  animate: {
-    y: [0, -10, 0],
-  },
-  transition: {
-    duration: 3,
-    repeat: Infinity,
-    ease: "easeInOut" as const
-  }
-};
-
-const About: React.FC = () => {
   return (
-    <Section id="about">
-      <Container>
-        <Title
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <TitleIcon {...iconAnimation}>👨‍💻</TitleIcon>
-          {about.title}
-        </Title>
-        <Subtitle
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          {about.subtitle}
-        </Subtitle>
-        <Content
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <Description>
-            <Highlight>Software Development Engineer</Highlight> with{' '}
-            <Highlight>4+ years</Highlight> of experience specializing in full-stack web application development.
-          </Description>
-          <Description>
-            <Icon>🚀</Icon>
-            I architect and build <strong>scalable web applications</strong> using modern technologies including{' '}
-            <Tech>Java</Tech>, <Tech>Spring Boot</Tech>, <Tech>REST APIs</Tech>,{' '}
-            <Tech>SQL</Tech>, <Tech>JavaScript</Tech>, <Tech>React</Tech>, and{' '}
-            <Tech>Angular</Tech>.
-          </Description>
-          <Description>
-            <Icon>⚙️</Icon>
-            My solutions have powered <strong>business applications</strong> serving thousands of users,
-            with optimized <Tech>AWS</Tech> cloud implementations.
-          </Description>
-          <Description>
-            <Icon>🔍</Icon>
-            I thrive in <strong>optimizing systems</strong> - whether refining code architecture,
-            improving performance, or implementing CI/CD pipelines.
-          </Description>
-          <Description>
-            <Icon>💡</Icon>
-            When not coding, I explore emerging technologies.
-          </Description>
-        </Content>
-      </Container>
-    </Section>
-  );
-};
+    <section id="about" className={`section ${styles.about}`} aria-labelledby="about-title">
+      <div className="wrap">
+        <SectionMarker n="01" label="About" />
 
-export default About;
+        <div className={styles.layout}>
+          <div className={styles.head}>
+            <h2 id="about-title" className="h2">
+              <RevealText text="Engineer first," /> <RevealText text="builder always." delay={0.15} />
+            </h2>
+            <Reveal as="figure" delay={0.1} className={styles.portrait}>
+              <picture>
+                <source type="image/avif" srcSet={`${asset('/assets/img/opt/jega-sm.avif')} 360w, ${asset('/assets/img/opt/jega.avif')} 640w`} sizes="(max-width: 900px) 70vw, 360px" />
+                <source type="image/webp" srcSet={`${asset('/assets/img/opt/jega-sm.webp')} 360w, ${asset('/assets/img/opt/jega.webp')} 640w`} sizes="(max-width: 900px) 70vw, 360px" />
+                <img
+                  src={asset('/assets/img/opt/jega.webp')}
+                  alt="Portrait of Jegatheesh C, smiling, in a white polo shirt"
+                  width={640} height={853} loading="lazy" decoding="async"
+                />
+              </picture>
+              <figcaption className="mono">Jegatheesh C — {years}+ yrs in the craft</figcaption>
+            </Reveal>
+          </div>
+
+          <div className={styles.body}>
+            <Reveal><blockquote className={styles.quote}>{about.subtitle}</blockquote></Reveal>
+            {about.description.map((p, i) => (
+              <Reveal key={i} delay={0.05} as="p" className={i === 0 ? styles.lead : styles.p}>{p.replace('{years}', String(years))}</Reveal>
+            ))}
+
+            <div className={styles.cols}>
+              <Reveal>
+                <h3 className={`${styles.h3} mono`}>Philosophy</h3>
+                <dl className={styles.philo}>
+                  {philosophy.map((p) => (
+                    <div key={p.k}><dt>{p.k}</dt><dd>{p.v}</dd></div>
+                  ))}
+                </dl>
+              </Reveal>
+              <Reveal delay={0.1}>
+                <h3 className={`${styles.h3} mono`}>Areas of expertise</h3>
+                <ul className={styles.tags}>
+                  {about.skills.map((s) => <li key={s}>{s}</li>)}
+                </ul>
+              </Reveal>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.highlights}>
+          <h3 className={`${styles.h3} mono`}>Career highlights</h3>
+          <ul className={styles.hlist}>
+            {careerHighlights.map((h, i) => (
+              <Reveal as="li" key={h.figure} delay={i * 0.07} className={styles.hitem}>
+                <span className={styles.fig}>{h.figure}</span>
+                <span className={styles.figText}>{h.text}</span>
+              </Reveal>
+            ))}
+          </ul>
+        </div>
+
+        <div className={styles.creds}>
+          <h3 className={`${styles.h3} mono`}>Education &amp; credentials</h3>
+          <div className={styles.credGrid}>
+            <ul>
+              {education.map((e) => (
+                <li key={e.degree + e.year}>
+                  <span className="mono">{e.year}</span>
+                  <span><strong>{e.degree}</strong>, {e.institution}, {e.location}</span>
+                  <span className={styles.grade}>{e.grade}</span>
+                </li>
+              ))}
+            </ul>
+            <ul>
+              {certs.map((c) => (
+                <li key={c.title}>
+                  <span className="mono">{c.date}</span>
+                  <span><strong>{c.title}</strong>, {c.issuer}</span>
+                  <span className={styles.grade}>Certificate</span>
+                </li>
+              ))}
+              {learning.map((c) => (
+                <li key={c.title}>
+                  <span className="mono">{c.duration}</span>
+                  <span><strong>{c.title}</strong>, {c.issuer}</span>
+                  <span className={styles.grade}>Course</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

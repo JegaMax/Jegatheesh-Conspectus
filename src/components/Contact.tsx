@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { asset } from '@/lib/site';
 import { personalInfo } from '@/data/portfolio';
 import { Reveal, RevealText, SectionMarker } from '@/components/ui/Reveal';
 import styles from './Contact.module.css';
@@ -38,7 +39,7 @@ export default function Contact() {
             <li><a href={personalInfo.social.linkedin} target="_blank" rel="noopener noreferrer"><span className="mono">LinkedIn</span><span>jegatheesh-c</span><i aria-hidden="true">↗</i><span className="sr-only">(opens in a new tab)</span></a></li>
             <li><a href={personalInfo.social.github} target="_blank" rel="noopener noreferrer"><span className="mono">GitHub</span><span>jegamax</span><i aria-hidden="true">↗</i><span className="sr-only">(opens in a new tab)</span></a></li>
             {personalInfo.resume && (
-              <li><a href={personalInfo.resume} download><span className="mono">Resume</span><span>Download PDF</span><i aria-hidden="true">↓</i></a></li>
+              <li><a href={asset(personalInfo.resume)} download><span className="mono">Resume</span><span>Download PDF</span><i aria-hidden="true">↓</i></a></li>
             )}
           </ul>
         </Reveal>

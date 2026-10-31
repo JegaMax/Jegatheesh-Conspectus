@@ -19,10 +19,7 @@ export const personalInfo = {
   },
   quote: "Philosophy gets on my nerves. If we analyze the ultimate ground of everything, then everything finally falls into nothingness. But I have decided to resume my lectures again and look the Hydra of doubt straight into the eye, and it be quite ominous if one values one's life.",
   image: "/assets/img/jega.jpg",
-  // No resume file exists in the repo yet. Drop a PDF into /public and set
-  // this to its path (e.g. "/resume/Jegatheesh-C-Resume.pdf") to enable the
-  // "Download resume" button in the Contact section.
-  resume: null as string | null,
+  resume: "/resume/Jegatheesh-C-Resume.pdf" as string | null,
   // Approximate coordinates of Kanyakumari (decorative hero detail only).
   coordinates: "8.08° N, 77.54° E",
   timeZone: "Asia/Kolkata"
@@ -192,6 +189,12 @@ export const courses = [
     type: "Certificate"
   },
   {
+    title: "Claude 101",
+    issuer: "Anthropic",
+    date: "",
+    type: "Certificate"
+  },
+  {
     title: "Search Engine Optimization",
     issuer: "Udemy",
     duration: "2 weeks",
@@ -215,22 +218,24 @@ export const experience = [
     startDate: "Nov 2023",
     endDate: "Present",
     description: [
-      "Designed & developed 20+ features for a Point-of-Sale (POS) application, improving UX and functionality.",
+      "Designed & developed 25+ features for a Point-of-Sale (POS) application for pawn shop management, improving workflows and system capability.",
+      "Architected loan management and payment scheduling features for complex financial workflows.",
+      "Leveraged AI-assisted development tools (Cursor, Claude) to accelerate feature development and improve debugging efficiency.",
       "Resolved critical bugs, ensuring application stability and performance.",
       "Built scalable cloud architecture using AWS (Lambda, SES, S3, Systems Manager).",
       "Integrated Angular frontend with Spring Boot backend via RESTful APIs for seamless data flow."
     ],
     techStack: [
       "AWS Lambda", "AWS SES", "AWS S3", "Spring Boot", "Angular", 
-      "MySQL", "OpenAI", "Twilio", "JWT", "REST API"
+      "MySQL", "Hibernate", "JPA", "OpenAI", "Twilio", "JWT", "REST API"
     ]
   },
   {
-    title: "Software Engineer (Development)",
+    title: "Software Development Engineer",
     company: "Vaken Technologies",
     type: "Full-time",
     mode: "Hybrid",
-    location: "Chennai, Tamil Nadu, India",
+    location: "Trichy, Tamil Nadu, India",
     startDate: "Mar 2021",
     endDate: "Nov 2023",
     duration: "2 years 9 months",
@@ -243,6 +248,8 @@ export const experience = [
       }
     ],
     description: [
+      "Developed and integrated the MDM application for remote management of smartphones and tablets, using the Android Management API.",
+      "Designed key features of the WorkEco app: task management, attendance, timeline, safety management and stress reporting.",
       "Built an enterprise admin portal for managing Android employee devices.",
       "Developed interactive web modules using Java, Spring Boot, React.js, MySQL.",
       "Enhanced & debugged existing Android/web apps, delivering bug-free releases.",
@@ -250,7 +257,7 @@ export const experience = [
     ],
     techStack: [
       "Java", "Spring Boot", "React.js", "MySQL", 
-      "REST API", "Android", "Hibernate"
+      "REST API", "Android", "Android Management API", "FCM", "Hibernate"
     ]
   }
 ];
@@ -298,6 +305,7 @@ export const skillGroups = [
     label: "Database",
     items: [
       { name: "MySQL", usedAt: "Vaken Technologies, Aadhtech" },
+      { name: "DynamoDB" },
       { name: "PostgreSQL" },
       { name: "RDBMS" }
     ]
@@ -316,7 +324,9 @@ export const skillGroups = [
     label: "Cloud & DevOps",
     items: [
       { name: "AWS", usedAt: "Aadhtech: Lambda, SES, S3, Systems Manager" },
-      { name: "CI/CD" }
+      { name: "CI/CD" },
+      { name: "Git" },
+      { name: "Firebase Cloud Messaging", usedAt: "Vaken Technologies" }
     ]
   },
   {
@@ -337,7 +347,7 @@ export const philosophy = [
 ];
 
 export const careerHighlights = [
-  { figure: "20+", text: "features designed and developed for a Point-of-Sale application at Aadhtech" },
+  { figure: "25+", text: "features designed and developed for a Point-of-Sale application at Aadhtech" },
   { figure: "AWS", text: "scalable cloud architecture on Lambda, SES, S3 and Systems Manager" },
   { figure: "Admin", text: "enterprise portal for managing Android employee devices, built at Vaken Technologies" },
   { figure: "OCA", text: "Oracle Certified Associate, Java SE 8 Programmer (March 2021)" }

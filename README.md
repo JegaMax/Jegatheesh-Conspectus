@@ -29,7 +29,7 @@ public/assets/img/opt/  WebP/AVIF derivatives used by the site
 
 ## Content you may want to complete (`src/data/portfolio.ts`)
 
-- `personalInfo.resume`: set to a PDF path in `/public` to show the "Download resume" button (hidden until set).
+- `personalInfo.resume`: points to `public/resume/Jegatheesh-C-Resume.pdf`; replace that file to update the download.
 - Per project: `github`, `demo`, and, when you want them shown, `contribution`/`challenges` fields are not rendered until added to the data and component.
 
 ## Deployment

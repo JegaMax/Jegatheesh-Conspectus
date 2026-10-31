@@ -57,6 +57,7 @@ const jsonLd = {
       '@type': 'Person',
       '@id': `${SITE_URL}/#person`,
       name: personalInfo.name,
+      alternateName: 'Jegatheesh Chellathurai',
       jobTitle: 'Software Engineer',
       description: DESCRIPTION,
       url: `${SITE_URL}/`,

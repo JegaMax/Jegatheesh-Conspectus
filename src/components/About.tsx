@@ -84,7 +84,7 @@ export default function About() {
             <ul>
               {certs.map((c) => (
                 <li key={c.title}>
-                  <span className="mono">{c.date}</span>
+                  <span className="mono">{c.date || 'Certified'}</span>
                   <span><strong>{c.title}</strong>, {c.issuer}</span>
                   <span className={styles.grade}>Certificate</span>
                 </li>

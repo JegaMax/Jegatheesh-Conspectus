@@ -1,0 +1,88 @@
+.hero {
+  --fs: clamp(4.2rem, 13.5vw, 12.5rem);
+  position: relative; min-height: 100svh; display: flex; flex-direction: column;
+  padding-top: var(--nav-h); overflow: hidden; isolation: isolate;
+  border-bottom: 1px solid var(--line);
+}
+
+/* faint drafting grid, masked so it fades toward the edges */
+.grid {
+  position: absolute; inset: 0; z-index: -3;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 72px 72px; opacity: 0.45;
+  mask-image: radial-gradient(70% 70% at 30% 40%, #000 20%, transparent 100%);
+  -webkit-mask-image: radial-gradient(70% 70% at 30% 40%, #000 20%, transparent 100%);
+}
+.stars { position: absolute; inset: 0; z-index: -2; opacity: 0; transition: opacity 1s ease; pointer-events: none; }
+.stars i { position: absolute; width: 2px; height: 2px; top: 0; left: 0; border-radius: 50%; animation: twinkle 7s ease-in-out infinite; }
+:global([data-theme='dark']) .stars { opacity: 0.8; }
+@keyframes twinkle { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+/* the lamp's light washing over the page, a soft surface-tinted pool */
+.beam {
+  position: absolute; z-index: -1; right: -6vw; top: 8%; width: 62vw; height: 92%;
+  background: radial-gradient(closest-side, color-mix(in srgb, #ffd58a 38%, transparent), transparent 72%);
+  opacity: 0.55; transition: opacity 0.8s ease; pointer-events: none;
+}
+:global([data-theme='dark']) .beam { opacity: 0; }
+
+.inner { position: relative; flex: 1; display: flex; flex-direction: column; justify-content: center; padding-block: clamp(2rem, 5vw, 4rem) clamp(7rem, 12vw, 9rem); }
+
+.status {
+  display: inline-flex; align-items: center; gap: 0.75rem; align-self: flex-start; flex-wrap: wrap;
+  padding: 0.5rem 0.9rem; border: 1px solid var(--line-strong); color: var(--text-2);
+  opacity: 0; animation: rise 0.9s var(--ease) forwards;
+}
+.statusText { color: var(--text-1); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2.4s ease-out infinite; }
+
+.name { margin-top: clamp(1.5rem, 4vw, 3rem); font-size: var(--fs); line-height: 0.86; letter-spacing: -0.055em; font-weight: 350; font-variation-settings: 'opsz' 144; }
+.mask { display: block; padding: 0.04em 0 0.04em; margin-bottom: -0.1em; }
+.mask:nth-child(2) { padding-left: 0.9em; }
+.rise { display: inline-block; opacity: 0; animation: maskUp 0.9s var(--ease) forwards; }
+.name i { font-style: italic; color: var(--primary); font-weight: 300; }
+
+.copy { position: relative; margin-top: clamp(1.5rem, 3vw, 2.5rem); max-width: 46rem; }
+.lede, .intro, .cta { opacity: 0; animation: rise 1s var(--ease) forwards; }
+.lede { font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2.4rem); line-height: 1.15; letter-spacing: -0.02em; }
+.lede em { color: var(--primary); }
+.intro { margin-top: 1.25rem; color: var(--text-2); max-width: 34rem; font-size: 1.02rem; }
+.cta { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 0.9rem; }
+
+/* wide screens: the lede tucks in beside the italic "C." for an asymmetric composition */
+@media (min-width: 1000px) {
+  .copy { margin-top: calc(var(--fs) * -0.78); margin-left: calc(var(--fs) * 1.35); }
+  .name .mask:nth-child(2) { padding-left: 0; }
+}
+
+.lampWrap { position: absolute; right: var(--gutter); bottom: 0; display: flex; flex-direction: column; align-items: center; }
+.lampBox { position: relative; z-index: 1; }
+.lampBox::after { /* the table top */
+  content: ''; position: absolute; left: -40%; right: -40%; bottom: 0; height: 1px; background: var(--line-strong);
+}
+.lampCaption { display: flex; flex-direction: column; align-items: center; gap: 0.45rem; margin-top: 1rem; color: var(--text-2); }
+.hint { display: inline-flex; gap: 0.5rem; font-size: 0.7rem; }
+.sound { font-size: 0.66rem; color: var(--text-2); padding: 0.55rem 0.7rem; min-height: 44px; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--line-strong); }
+.sound:hover { color: var(--text-1); }
+
+.meta {
+  display: flex; justify-content: space-between; gap: 1.5rem; padding-block: 1.1rem;
+  border-top: 1px solid var(--line); color: var(--text-2); font-size: 0.7rem; background: var(--bg); position: relative; z-index: 2;
+}
+.scrollCue::after { content: ''; display: inline-block; width: 36px; height: 1px; background: currentColor; vertical-align: middle; margin-left: 0.7rem; transform-origin: left; animation: scrollLine 2.4s var(--ease) infinite; }
+@keyframes scrollLine { 0% { transform: scaleX(0); } 60% { transform: scaleX(1); } 100% { transform: scaleX(1); opacity: 0; } }
+
+@media (max-width: 999px) {
+  .lampWrap { position: static; align-self: flex-end; margin-top: 2.5rem; margin-right: 0; }
+  .inner { padding-bottom: 3rem; }
+}
+@media (max-width: 640px) {
+  .metaHide { display: none; }
+  .mask:nth-child(2) { padding-left: 0.5em; }
+}
+
+/* keyframes live here: CSS Modules localise animation names */
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+/* fade + short rise (no clipping, so the heading counts as painted at full size immediately: good for LCP) */
+@keyframes maskUp { from { opacity: 0; transform: translateY(0.14em); } to { opacity: 1; transform: none; } }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } 50% { box-shadow: 0 0 0 7px transparent; } }

@@ -1,0 +1,17 @@
+.contact { background: var(--surface); --text-2: color-mix(in srgb, var(--text-1) 80%, var(--surface)); }
+.headline { font-size: clamp(2.8rem, 8.5vw, 8rem); letter-spacing: -0.04em; line-height: 0.98; max-width: 14ch; }
+.headline em { color: var(--primary); }
+.mail { margin-top: clamp(2.5rem, 6vw, 4.5rem); display: flex; align-items: baseline; gap: 1.5rem; flex-wrap: wrap; }
+.email { display: inline-flex; gap: 0.6rem; align-items: baseline; font-family: var(--font-display); font-size: clamp(1.4rem, 4vw, 3.2rem); letter-spacing: -0.02em; overflow-wrap: anywhere; background: linear-gradient(var(--primary), var(--primary)) 0 100% / 0 2px no-repeat; transition: background-size 0.5s var(--ease), color 0.3s; padding-bottom: 0.15em; }
+.email:hover { background-size: 100% 2px; color: var(--primary); }
+.arrow { font-size: 0.6em; transition: transform 0.4s var(--ease); }
+.email:hover .arrow { transform: translate(4px, -4px); }
+.copy { font-size: 0.72rem; color: var(--primary); text-decoration: underline; text-underline-offset: 4px; min-height: 44px; padding: 0 0.5rem; }
+
+.links { margin-top: clamp(3rem, 6vw, 5rem); border-top: 1px solid var(--line-strong); }
+.links a { display: grid; grid-template-columns: 8rem 1fr auto; align-items: baseline; gap: 1rem; padding: 1.4rem 0; border-bottom: 1px solid var(--line-strong); font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 2.2rem); letter-spacing: -0.02em; transition: padding-left 0.45s var(--ease), color 0.3s, background-color 0.3s; }
+.links a .mono { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-2); }
+.links a i { font-style: normal; transition: transform 0.4s var(--ease); }
+.links a:hover { padding-left: 1rem; color: var(--primary); }
+.links a:hover i { transform: translate(4px, -4px); }
+@media (max-width: 560px) { .links a { grid-template-columns: 1fr auto; } .links a .mono { grid-column: 1 / -1; } }
